@@ -122,7 +122,7 @@ import os
 import json
 import re
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def suggest_diagnosis_ai(user_input): 
 
@@ -138,8 +138,8 @@ def suggest_diagnosis_ai(user_input):
 \"\"\"{user_input}\"\"\""""
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or gpt-4 if enabled
+        response = client.chat.completions.create(
+            model="gpt-4",  # or gpt-4 if enabled
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": prompt}
@@ -147,7 +147,8 @@ def suggest_diagnosis_ai(user_input):
             temperature=0.2
         )
 
-        raw = response['choices'][0]['message']['content'].strip()
+        # raw = response['choices'][0]['message']['content'].strip()
+        raw = response.choices[0].message.content.strip()
         print("OpenAI raw response:\n", raw)
 
         # Try direct JSON first
@@ -184,8 +185,8 @@ def suggest_treatment_ai(diagnoses):
     \"\"\"{diagnoses}\"\"\"
     """
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or gpt-4 if enabled
+        response = client.chat.completions.create(
+            model="gpt-4",  # or gpt-4 if enabled
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": prompt}
@@ -193,7 +194,8 @@ def suggest_treatment_ai(diagnoses):
             temperature=0.2
         )
 
-        raw = response['choices'][0]['message']['content'].strip()
+        # raw = response['choices'][0]['message']['content'].strip()
+        raw = response.choices[0].message.content.strip()
         print("OpenAI raw response:\n", raw)
 
         # Try direct JSON first
