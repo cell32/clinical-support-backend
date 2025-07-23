@@ -1,4 +1,5 @@
 
+import os
 from fastapi import FastAPI, Body, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -11,14 +12,19 @@ from app.ai_engine import suggest_treatment_ai  # AI fallback
 
 from pydantic import BaseModel
 from typing import List
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
 #Correct CORS Configuration
+origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173",
-       "https://clinical-support-tool.onrender.com",],
+    # allow_origins=["http://localhost:5173",
+    #    "https://clinical-support-tool.onrender.com",],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

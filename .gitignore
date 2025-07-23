@@ -28,3 +28,7 @@ ollama/
 *.ckpt
 *.pt
 *.onnx
+
+
+# Ignore all env files
+*.env
