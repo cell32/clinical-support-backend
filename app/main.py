@@ -17,7 +17,8 @@ app = FastAPI()
 #Correct CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  #Allow the frontend URL only
+    allow_origins=["http://localhost:5173",
+       "https://clinical-support-tool-frontend.onrender.com",],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
