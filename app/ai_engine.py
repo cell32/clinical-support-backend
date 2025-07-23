@@ -117,12 +117,15 @@ makes a API call. This will only be used due to the constrain to run it on RENDE
 #         }]
 
 """ Using OPENAI to make a API call, use this code for Production only"""
-import openai
 import os
 import json
 import re
+from openai import OpenAI
+from dotenv import load_dotenv
 
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def suggest_diagnosis_ai(user_input): 
 
