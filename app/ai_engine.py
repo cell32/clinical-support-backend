@@ -147,15 +147,17 @@ def suggest_diagnosis_ai(user_input):
 \"\"\"{user_input}\"\"\""""
 
     try:
+        print("DEBUG: Sending request to OpenAI...")
         response = client.chat.completions.create(
             model="gpt-4",  # or gpt-4 if enabled
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.2
+            temperature=0.7,
+            max_tokens=300,
         )
-
+        print("DEBUG: OpenAI response received")
         # raw = response['choices'][0]['message']['content'].strip()
         raw = response.choices[0].message.content.strip()
         print("OpenAI raw response:\n", raw)

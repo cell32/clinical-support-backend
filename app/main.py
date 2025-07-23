@@ -22,8 +22,6 @@ app = FastAPI()
 origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["http://localhost:5173",
-    #    "https://clinical-support-tool.onrender.com",],
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
