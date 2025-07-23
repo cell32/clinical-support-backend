@@ -18,7 +18,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173",
-       "https://clinical-support-tool-frontend.onrender.com",],
+       "https://clinical-support-tool.onrender.com",],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
