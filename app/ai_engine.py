@@ -122,6 +122,7 @@ import json
 import re
 from openai import OpenAI
 from dotenv import load_dotenv
+from openai import APITimeoutError, RateLimitError
 
 load_dotenv()
 
@@ -146,7 +147,7 @@ def suggest_diagnosis_ai(user_input):
 \"\"\"{user_input}\"\"\""""
 
     try:
-        print("DEBUG: Sending request to OpenAI...")
+        print(f"DEBUG: Using API Key: {OPENAI_API_KEY[:8]}...")  # Log first 8 chars for verification
         response = client.chat.completions.create(
             model="gpt-4",  # or gpt-4 if enabled
             messages=[
@@ -156,10 +157,10 @@ def suggest_diagnosis_ai(user_input):
             temperature=0.7,
             max_tokens=300,
         )
-        print("DEBUG: OpenAI response received")
+        print(f"DEBUG: OpenAI call completed in {time.time()-start_time:.2f}s")
         # raw = response['choices'][0]['message']['content'].strip()
         raw = response.choices[0].message.content.strip()
-        print("OpenAI raw response:\n", raw)
+        print(f"DEBUG: Raw response size: {len(raw)} chars")
 
         # Try direct JSON first
         try:
